@@ -15,6 +15,3 @@ class LinkedList:
         node = Node(data,self.head)
         self.head = node
 
-ll = LinkedList()
-ll.insert_head(10)
-print(vars(ll))
