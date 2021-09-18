@@ -22,7 +22,6 @@ class LinkedList:
             ll_string += f' {str(node.data)} =>'
             node = node.next_node
         ll_string += ' None'
-        # Print Linked List
         print(ll_string)
 
     # Insert at Beginning
@@ -43,27 +42,13 @@ class LinkedList:
             return
         
         self.last_node.next_node = Node(data,None)
-        self.last_node = self.last_node.next_node
-        # If Last Node is None
-        # if self.last_node is None:
-        #     node = self.head
-        #     while node.next_node:
-        #         node = node.next_node
-            
-        #     node.next_node = Node(data,None)
-        #     self.last_node = node.next_node
-        
-        # else:
-        #     self.last_node.next_node = Node(data,None)
-        #     self.last_node = self.last_node.next_node
-
-        
+        self.last_node = self.last_node.next_node       
 
 
-ll = LinkedList()
-ll.insert_tail(10)
-ll.insert_tail(20)
-ll.insert_tail(20)
-ll.insert_tail(20)
-ll.insert_tail(50)
-ll.print_ll()
+# ll = LinkedList()
+# ll.insert_tail(10)
+# ll.insert_tail(20)
+# ll.insert_tail(20)
+# ll.insert_tail(20)
+# ll.insert_tail(50)
+# ll.print_ll()
