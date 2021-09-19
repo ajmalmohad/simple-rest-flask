@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from flask_sqlalchemy import SQLAlchemy
-from ds.linked_list import linked_list
+import linked_list
 
 # App
 app = Flask(__name__)
@@ -68,11 +68,20 @@ def sort_users_descending():
             "email":user.email,
             "address":user.address,
         })
-    return jsonify(users_ll.to_array())
+    return jsonify(users_ll.to_list()),200
 
 @app.route("/user/ascending_id", methods=["GET"])
 def sort_users_ascending():
-    pass
+    users = User.query.all()
+    users_ll = linked_list.LinkedList()
+    for user in users:
+        users_ll.insert_tail({
+            "id":user.id,
+            "name":user.name,
+            "email":user.email,
+            "address":user.address,
+        })
+    return jsonify(users_ll.to_list()),200
 
 @app.route("/user/<user_id>", methods=["GET"])
 def get_user(user_id):

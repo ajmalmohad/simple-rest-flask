@@ -10,6 +10,17 @@ class LinkedList:
         self.head = None
         self.last_node = None
 
+    # Linked List to Array
+    def to_list(self):
+        list = []
+        if self.head is None:
+            return list
+        node = self.head
+        while(node):
+            list.append(node.data)
+            node = node.next_node
+        return list
+
     # Print Linked List
     def print_ll(self):
         ll_string=''
