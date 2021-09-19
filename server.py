@@ -95,11 +95,14 @@ def get_user(user_id):
             "address":user.address,
         })
     user = users_ll.get_user_by_id(user_id)
-    return jsonify(user)
+    return jsonify(user),200
 
 @app.route("/user/<user_id>", methods=["DELETE"])
 def delete_user(user_id):
-    pass
+    user = User.query.filter_by(id=user_id).first()
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify({}),200
 
 @app.route("/blog_post/<user_id>", methods=["POST"])
 def create_blog(user_id):
