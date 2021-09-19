@@ -85,7 +85,17 @@ def sort_users_ascending():
 
 @app.route("/user/<user_id>", methods=["GET"])
 def get_user(user_id):
-    pass
+    users = User.query.all()
+    users_ll = linked_list.LinkedList()
+    for user in users:
+        users_ll.insert_head({
+            "id":user.id,
+            "name":user.name,
+            "email":user.email,
+            "address":user.address,
+        })
+    user = users_ll.get_user_by_id(user_id)
+    return jsonify(user)
 
 @app.route("/user/<user_id>", methods=["DELETE"])
 def delete_user(user_id):
