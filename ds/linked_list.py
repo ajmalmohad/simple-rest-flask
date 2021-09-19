@@ -17,7 +17,7 @@ class LinkedList:
         # Empty Linked List
         if node is None:
             print(None)
-        # Displayed as String
+        # Non Empty Linked List
         while(node):
             ll_string += f' {str(node.data)} =>'
             node = node.next_node
@@ -30,7 +30,6 @@ class LinkedList:
             self.head = Node(data,None)
             self.last_node = self.head
             return
-
         new_node = Node(data,self.head)
         self.head = new_node
 
@@ -40,15 +39,5 @@ class LinkedList:
         if self.head is None:
             self.insert_head(data)
             return
-        
         self.last_node.next_node = Node(data,None)
-        self.last_node = self.last_node.next_node       
-
-
-# ll = LinkedList()
-# ll.insert_tail(10)
-# ll.insert_tail(20)
-# ll.insert_tail(20)
-# ll.insert_tail(20)
-# ll.insert_tail(50)
-# ll.print_ll()
+        self.last_node = self.last_node.next_node
