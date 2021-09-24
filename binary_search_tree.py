@@ -27,3 +27,17 @@ class BinarySearchTree:
             self.root = Node(value)
         else:
             self._insert_recursive(value,self.root)
+
+
+
+bts = BinarySearchTree()
+bts.insert(20)
+bts.insert(10)
+bts.insert(12)
+bts.insert(5)
+bts.insert(2)
+bts.insert(3)
+bts.insert(30)
+bts.insert(25)
+bts.insert(50)
+bts.printLevelOrder(bts.root)
