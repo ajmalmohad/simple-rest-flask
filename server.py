@@ -134,10 +134,6 @@ def create_blog(user_id):
     return jsonify({"message":"Blog Post Created"}),200
 
 
-@app.route("/blog_posts", methods=["GET"])
-def get_all_blogs():
-    pass
-
 @app.route("/blog_post/<blog_post_id>", methods=["GET"])
 def get_blog(blog_post_id):
     blogposts = BlogPost.query.all()
@@ -157,6 +153,10 @@ def get_blog(blog_post_id):
 
 @app.route("/blog_post/<blog_post_id>", methods=["DELETE"])
 def delete_blog(blog_post_id):
+    pass
+
+@app.route("/blog_posts", methods=["GET"])
+def get_all_blogs():
     pass
 
 # Run
