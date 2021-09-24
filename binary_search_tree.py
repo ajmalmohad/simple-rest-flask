@@ -8,35 +8,40 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    def _insert_recursive(self,value,node):
-        if value < node.data:
+    def _insert_recursive(self,data,node):
+        if data["id"] < node.data["id"]:
             if node.left is None:
-                node.left = Node(value)
+                node.left = Node(data)
             else:
-                self._insert_recursive(value,node.left)
-        elif value > node.data:
+                self._insert_recursive(data,node.left)
+        elif data["id"] > node.data["id"]:
             if node.right is None:
-                node.right = Node(value)
+                node.right = Node(data)
             else:
-                self._insert_recursive(value,node.right)
+                self._insert_recursive(data,node.right)
         else:
             return
 
-    def insert(self,value):
+    def insert(self,data):
         if self.root is None:
-            self.root = Node(value)
+            self.root = Node(data)
         else:
-            self._insert_recursive(value,self.root)
+            self._insert_recursive(data,self.root)
 
+    def _search_recursively(self,node,blog_post_id):
+        if node.left and node.right is None:
+            return False
+        if blog_post_id == node.data['id']:
+            return node.data
 
+        if blog_post_id < node.data['id']:
+            return self._search_recursively(node.left,blog_post_id)
 
-bts = BinarySearchTree()
-bts.insert(20)
-bts.insert(10)
-bts.insert(12)
-bts.insert(5)
-bts.insert(2)
-bts.insert(3)
-bts.insert(30)
-bts.insert(25)
-bts.insert(50)
+        if blog_post_id > node.data['id']:
+            return self._search_recursively(node.right,blog_post_id)
+
+    def search(self,blog_post_id):
+        blog_post_id = int(blog_post_id)
+        if self.root is None:
+            return False
+        return self._search_recursively(self.root,blog_post_id)

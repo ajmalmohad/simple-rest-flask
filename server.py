@@ -5,8 +5,12 @@ from datetime import datetime
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from flask_sqlalchemy import SQLAlchemy
+import random
+
+# Datastructures
 import linked_list
 import hash_table
+import binary_search_tree
 
 # App
 app = Flask(__name__)
@@ -135,11 +139,24 @@ def get_all_blogs():
     pass
 
 @app.route("/blog_post/<blog_post_id>", methods=["GET"])
-def delete_blog(blog_post_id):
-    pass
+def get_blog(blog_post_id):
+    blogposts = BlogPost.query.all()
+    random.shuffle(blogposts)
+    bst = binary_search_tree.BinarySearchTree()
+    for post in blogposts:
+        bst.insert({
+            "id": post.id,
+            "title": post.title,
+            "body": post.body,
+            "user_id": post.user_id,
+        })
+    post = bst.search(blog_post_id)
+    if not post:
+        return jsonify({"message":"Post Not Found"})
+    return jsonify(post)
 
 @app.route("/blog_post/<blog_post_id>", methods=["DELETE"])
-def get_blog(blog_post_id):
+def delete_blog(blog_post_id):
     pass
 
 # Run
