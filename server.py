@@ -1,4 +1,5 @@
 #Imports
+from operator import pos
 from flask import  Flask, request, jsonify
 from sqlite3 import Connection as SQLite3Connection
 from datetime import datetime
@@ -11,6 +12,7 @@ import random
 import linked_list
 import hash_table
 import binary_search_tree
+import custom_q
 
 # App
 app = Flask(__name__)
@@ -155,9 +157,26 @@ def get_blog(blog_post_id):
 def delete_blog(blog_post_id):
     pass
 
-@app.route("/blog_posts", methods=["GET"])
-def get_all_blogs():
-    pass
+@app.route("/blog_posts/numeric_body", methods=["GET"])
+def get_numeric_post_bodies():
+    blogposts = BlogPost.query.all()
+    q = custom_q.Queue()
+    for post in blogposts:
+        q.enqueue(post)
+    return_list = []
+    for _ in range(len(blogposts)):
+        post = q.dequeue()
+        numeric_body = 0
+        for char in post.data.body:
+            numeric_body += ord(char)
+        post.data.body = numeric_body
+        return_list.append({
+            "id":post.data.id,
+            "title":post.data.title,
+            "body":post.data.body,
+            "user_id":post.data.user_id,
+        })
+    return jsonify(return_list)
 
 # Run
 if __name__ == "__main__":
