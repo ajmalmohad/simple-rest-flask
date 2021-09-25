@@ -13,6 +13,7 @@ import linked_list
 import hash_table
 import binary_search_tree
 import custom_q
+import stack
 
 # App
 app = Flask(__name__)
@@ -153,9 +154,6 @@ def get_blog(blog_post_id):
         return jsonify({"message":"Post Not Found"})
     return jsonify(post)
 
-@app.route("/blog_post/<blog_post_id>", methods=["DELETE"])
-def delete_blog(blog_post_id):
-    pass
 
 @app.route("/blog_posts/numeric_body", methods=["GET"])
 def get_numeric_post_bodies():
@@ -177,6 +175,19 @@ def get_numeric_post_bodies():
             "user_id":post.data.user_id,
         })
     return jsonify(return_list)
+
+@app.route("/blog_post/delete_last_10", methods=["DELETE"])
+def delete_last_10():
+    blogposts = BlogPost.query.all()
+    s = stack.Stack()
+    for post in blogposts:
+        s.push(post)
+    for _ in range(10):
+        post_to_delete = s.pop()
+        db.session.delete(post_to_delete.data)
+        db.session.commit()
+    return jsonify({"message":"Last 10 Posts Deleted"})
+    
 
 # Run
 if __name__ == "__main__":
